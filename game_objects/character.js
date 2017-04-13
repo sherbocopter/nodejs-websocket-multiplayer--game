@@ -1,5 +1,7 @@
 var Entity = require('./entity');
 
+var randomColor = require('../functions/random_color');
+
 var Character = function(id) {
 	var self = Entity();
 	self.type = "Character";
@@ -12,6 +14,7 @@ var Character = function(id) {
 	self.pressingDown = false;
 	self.acceleration = 2;
 	self.maxSpeed = 10;
+	self.color = randomColor();
 
 	var super_update = self.update;
 	self.update = function() {
@@ -40,7 +43,8 @@ var Character = function(id) {
 			x: self.x,
 			y: self.y,
 			name: self.name,
-			id: self.id
+			id: self.id,
+			color: self.color
 		};
 	};
 

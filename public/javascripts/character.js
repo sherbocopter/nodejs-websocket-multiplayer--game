@@ -6,11 +6,11 @@ var Character = function(data) {
 		
 		// draw rect
 		ctx.rect(self.x - 10, self.y, 20, -40);
-		ctx.fillStyle = '#000000';
+		ctx.fillStyle = self.color;
 		ctx.globalAlpha = 0.5;
 		ctx.fill();
 		ctx.globalAlpha = 1;
-		ctx.strokeStyle = '#000000';
+		ctx.strokeStyle = self.color;
 		ctx.stroke();
 
 		// draw name
@@ -23,6 +23,7 @@ var Character = function(data) {
 		self.y = pack.y;
 		self.name = pack.name;
 		self.id = pack.id;
+		self.color = pack.color;
 	}
 
 	self.update = function(pack) {
