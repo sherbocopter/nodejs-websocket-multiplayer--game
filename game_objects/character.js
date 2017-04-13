@@ -15,9 +15,14 @@ var Character = function(id) {
 	self.acceleration = 2;
 	self.maxSpeed = 10;
 	self.color = randomColor();
+	self.message = '';
+
+	self.preMessage = '';
 
 	var super_update = self.update;
 	self.update = function() {
+		self.message = self.preMessage;
+		self.preMessage = '';
 		self.updateSpeed();
 		super_update();
 	}
@@ -44,7 +49,8 @@ var Character = function(id) {
 			y: self.y,
 			name: self.name,
 			id: self.id,
-			color: self.color
+			color: self.color,
+			message: ''
 		};
 	};
 
@@ -52,7 +58,8 @@ var Character = function(id) {
 		return {
 			x: self.x,
 			y: self.y,
-			id: self.id
+			id: self.id,
+			message: self.message
 		};
 	}
 
@@ -72,6 +79,10 @@ Character.onConnect = function(socket) {
 			character.pressingUp = data.state;
 		else if (data.inputId === 'down')
 			character.pressingDown = data.state;
+	});
+
+	socket.on('send message', function(message) {
+		character.preMessage = message;
 	});
 
 	return character;

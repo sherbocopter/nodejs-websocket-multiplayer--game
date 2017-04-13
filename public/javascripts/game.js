@@ -68,7 +68,7 @@ var toggleChat = function(b) {
 }
 
 var sendMessage = function(message) {
-	console.log('sending message: ' + message);
+	socket.emit('send message', message);
 }
 
 $('#formChat').submit(function() {
