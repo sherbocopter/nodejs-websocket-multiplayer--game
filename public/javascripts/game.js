@@ -44,15 +44,58 @@ setInterval(function() {
 	}
 }, 40);
 
+var isChatOn = false;
+var toggleChat = function(b) {
+	if (b === true) {
+		isChatOn = true;
+		
+		var formChat = document.getElementById('formChat');
+		formChat.style.visibility = 'visible';
+
+		var inputChat = document.getElementById('inputChat');
+		inputChat.value = '';
+		inputChat.focus();
+	}
+	else {
+		isChatOn = false;
+		
+		var formChat = document.getElementById('formChat');
+		formChat.style.visibility = 'hidden';
+
+		var inputChat = document.getElementById('inputChat');
+		inputChat.value = '';
+	}
+}
+
+var sendMessage = function(message) {
+	console.log('sending message: ' + message);
+}
+
+$('#formChat').submit(function() {
+	var inputChat = document.getElementById('inputChat');
+
+	sendMessage(inputChat.value);
+	toggleChat(false);
+
+	return false;
+});
+
 document.onkeydown = function(event) {
-	if (event.keyCode === 68)
-		socket.emit('keyPress', {inputId: 'right', state: true});
-	else if (event.keyCode === 83)
-		socket.emit('keyPress', {inputId: 'down', state: true});
-	else if (event.keyCode === 65)
-		socket.emit('keyPress', {inputId: 'left', state: true});
-	else if (event.keyCode === 87)
-		socket.emit('keyPress', {inputId: 'up', state: true});
+	if (isChatOn === false) {
+		if (event.keyCode === 89) // y
+			toggleChat(true);
+		else if (event.keyCode === 68) // d
+			socket.emit('keyPress', {inputId: 'right', state: true});
+		else if (event.keyCode === 83) // s
+			socket.emit('keyPress', {inputId: 'down', state: true});
+		else if (event.keyCode === 65) // a
+			socket.emit('keyPress', {inputId: 'left', state: true});
+		else if (event.keyCode === 87) // w
+			socket.emit('keyPress', {inputId: 'up', state: true});
+	}
+	else {
+
+	}
 };
 
 document.onkeyup = function(event) {
