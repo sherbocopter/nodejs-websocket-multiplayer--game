@@ -8,12 +8,14 @@ var Character = function(id) {
 
 	self.id = id;
 	self.name = "";
+	self.x = Math.floor(Math.random() * 600) + 100;
+	self.y = Math.floor(Math.random() * 400) + 100;
 	self.pressingRight = false;
 	self.pressingLeft = false;
 	self.pressingUp = false;
 	self.pressingDown = false;
 	self.acceleration = 2;
-	self.maxSpeed = 10;
+	self.maxSpeed = 13;
 	self.color = randomColor();
 	self.message = '';
 
@@ -25,6 +27,18 @@ var Character = function(id) {
 		self.preMessage = '';
 		self.updateSpeed();
 		super_update();
+		self.snapToBox();
+	}
+
+	self.snapToBox = function() {
+		if (self.x < 30)
+			self.x = 30;
+		else if (self.x > 770)
+			self.x = 770;
+		if (self.y < 50)
+			self.y = 50;
+		else if (self.y > 570)
+			self.y = 570;
 	}
 
 	self.updateSpeed = function() {
