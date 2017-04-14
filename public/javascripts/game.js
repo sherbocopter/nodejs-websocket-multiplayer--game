@@ -82,8 +82,11 @@ $('#formChat').submit(function() {
 
 document.onkeydown = function(event) {
 	if (isChatOn === false) {
-		if (event.keyCode === 89) // y
+		if (event.keyCode === 13) // enter
+		{
+			event.preventDefault();
 			toggleChat(true);
+		}
 		else if (event.keyCode === 68) // d
 			socket.emit('keyPress', {inputId: 'right', state: true});
 		else if (event.keyCode === 83) // s
